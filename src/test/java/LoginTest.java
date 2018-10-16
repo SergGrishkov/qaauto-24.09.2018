@@ -3,39 +3,71 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
 public class LoginTest {
 
-    @Test
-    public void successfulLoginTest () throws InterruptedException {
+    WebDriver webDriver;
 
-        WebDriver webDriver = new FirefoxDriver();
+    @BeforeMethod
+    public void beforeMethod() {
+        webDriver = new FirefoxDriver();
+    }
+
+    @AfterMethod
+    public void afterMethod () {
+        webDriver.quit();
+    }
+
+    @Test
+    public void successfulLoginTest ()  {
+
+
+        webDriver.get("https://linkedin.com");
+
+        String linkSite = webDriver.getCurrentUrl();
+        String login = "SergAutoTest@bigmir.net";
+        String pwd = "!qaz@wsx";
+        String homeLink = "https://www.linkedin.com/feed/";
+
+        LoginPage loginPage = new LoginPage(webDriver);
+
+        Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
+
+        loginPage.login(login, pwd);
+
+        Assert.assertEquals(webDriver.getCurrentUrl(),homeLink, "AccountPage URL is correct!");
+
+
+    }
+
+
+    @Test
+    public void negativeLoginTest () {
+
         webDriver.get("https://linkedin.com");
 
         String linkSite = webDriver.getCurrentUrl();
 
-        String login = "SergAutoTest@bigmir.net";
-        String loginXpath = "//*[@id=\"login-email\"]";
-        String pwd = "!qaz@wsx";
-        String pwdXpath = "//*[@id=\"login-password\"]";
-        String buttonXpath = "//*[@id=\"login-submit\"]";
-        String feedLink = "https://www.linkedin.com/feed/";
+        Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
+
+        String login = "a@b.c";
+        String pwd = "";
+//        String homeLink = "https://www.linkedin.com/feed/";
+
+        WebElement userEmailField = webDriver.findElement(By.xpath("//*[@id=\"login-email\"]"));
+        WebElement userPasswordField = webDriver.findElement(By.xpath("//*[@id=\"login-password\"]"));
+        WebElement signInButton = webDriver.findElement(By.xpath("//*[@id=\"login-submit\"]"));
+
+        userEmailField.sendKeys(login);
+        userPasswordField.sendKeys(pwd);
+        signInButton.click();
 
         Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
 
-        WebElement searchFieldLogin = webDriver.findElement(By.xpath(loginXpath));
-        searchFieldLogin.sendKeys(login);
-        WebElement searchFieldPwd = webDriver.findElement(By.xpath(pwdXpath));
-        searchFieldPwd.sendKeys(pwd);
-        WebElement searchFieldButton = webDriver.findElement(By.xpath(buttonXpath));
-        searchFieldButton.click();
-
-
-        Assert.assertEquals(webDriver.getCurrentUrl(),feedLink, "AccountPage URL is not correct!");
-
-        webDriver.quit();
 
     }
 
