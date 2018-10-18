@@ -36,13 +36,18 @@ public class LoginTest {
 
         LoginPage loginPage = new LoginPage(webDriver);
 
+
         Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
+        Assert.assertEquals(webDriver.getTitle(),"LinkedIn: Войти или зарегистрироваться","Login Page title is wrong!"); //s2: comment if assert will down
+        Assert.assertTrue(loginPage.signInButton.isDisplayed(),"signInButton is not Displayed on login page.");//s: comment if assert will down
 
         loginPage.login(login, password);
 
         Assert.assertEquals(webDriver.getCurrentUrl(),homeLinkFeed, "AccountPage URL is correct!");
+        Assert.assertEquals(webDriver.getTitle(),"LinkedIn","Home Page title is wrong!"); //s2: comment if assert will down
 
-
+        HomePage homePage = new HomePage(webDriver);
+        Assert.assertTrue(homePage.profileNavItem.isDisplayed(),"signInButton is not Displayed on login page.");//s: comment if assert will down
     }
 
 
@@ -72,14 +77,14 @@ public class LoginTest {
         String linkSite = webDriver.getCurrentUrl();
         String login = "SergAutoTest@bigmir.net";
         String password = "112233q";
-        String homeLinkGuestHome = "https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME";
+        String homeLinkGuest = "https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME";
 
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
 
         loginPage.login(login,password);
 
-        Assert.assertEquals(webDriver.getCurrentUrl(),homeLinkGuestHome, "You are not logged in to your account!");
+        Assert.assertEquals(webDriver.getCurrentUrl(),homeLinkGuest, "You are not logged in to your account!");
 
     }
 
