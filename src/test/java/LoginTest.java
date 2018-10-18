@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
+
 public class LoginTest {
 
     WebDriver webDriver;
@@ -30,44 +31,55 @@ public class LoginTest {
 
         String linkSite = webDriver.getCurrentUrl();
         String login = "SergAutoTest@bigmir.net";
-        String pwd = "!qaz@wsx";
-        String homeLink = "https://www.linkedin.com/feed/";
+        String password = "!qaz@wsx";
+        String homeLinkFeed = "https://www.linkedin.com/feed/";
 
         LoginPage loginPage = new LoginPage(webDriver);
 
         Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
 
-        loginPage.login(login, pwd);
+        loginPage.login(login, password);
 
-        Assert.assertEquals(webDriver.getCurrentUrl(),homeLink, "AccountPage URL is correct!");
+        Assert.assertEquals(webDriver.getCurrentUrl(),homeLinkFeed, "AccountPage URL is correct!");
 
 
     }
 
 
     @Test
-    public void negativeLoginTest () {
+    public void negativeLoginTestWithoutPassword () {
 
-        webDriver.get("https://linkedin.com");
-
+        webDriver.get("https://www.linkedin.com/");
         String linkSite = webDriver.getCurrentUrl();
-
-        Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
-
         String login = "a@b.c";
-        String pwd = "";
-//        String homeLink = "https://www.linkedin.com/feed/";
+        String password = "";
+        String homeLink = "https://www.linkedin.com/";
 
-        WebElement userEmailField = webDriver.findElement(By.xpath("//*[@id=\"login-email\"]"));
-        WebElement userPasswordField = webDriver.findElement(By.xpath("//*[@id=\"login-password\"]"));
-        WebElement signInButton = webDriver.findElement(By.xpath("//*[@id=\"login-submit\"]"));
-
-        userEmailField.sendKeys(login);
-        userPasswordField.sendKeys(pwd);
-        signInButton.click();
+        LoginPage loginPage = new LoginPage(webDriver);
 
         Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
 
+        loginPage.login(login,password);
+
+        Assert.assertEquals(webDriver.getCurrentUrl(),homeLink, "You are not logged in to your account!");
+
+
+    }
+
+    @Test
+    public void negativeLoginTestWithIncorrectPassword() {
+        webDriver.get("https://www.linkedin.com");
+        String linkSite = webDriver.getCurrentUrl();
+        String login = "SergAutoTest@bigmir.net";
+        String password = "112233q";
+        String homeLinkGuestHome = "https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME";
+
+        LoginPage loginPage = new LoginPage(webDriver);
+        Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
+
+        loginPage.login(login,password);
+
+        Assert.assertEquals(webDriver.getCurrentUrl(),homeLinkGuestHome, "You are not logged in to your account!");
 
     }
 
