@@ -7,6 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static java.lang.Thread.sleep;
 
 
 public class LoginTest {
@@ -24,64 +25,97 @@ public class LoginTest {
     }
 
     @Test
-    public void successfulLoginTest ()  {
+    public void successfulLoginTest () throws InterruptedException {
 
 
         webDriver.get("https://www.linkedin.com/");
 
-        //String linkSite = webDriver.getCurrentUrl();
         String login = "SergAutoTest@bigmir.net";
         String password = "!qaz@wsx";
-        String homeLinkFeed = "https://www.linkedin.com/feed/";
 
         LoginPage loginPage = new LoginPage(webDriver);
-
         Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
-
         loginPage.login(login, password);
 
-        Assert.assertEquals(webDriver.getCurrentUrl(),homeLinkFeed, "AccountPage URL is correct!");
-        Assert.assertEquals(webDriver.getTitle(),"LinkedIn","Home Page title is wrong!"); //s2: comment if assert will down
-
         HomePage homePage = new HomePage(webDriver);
-        //Assert.assertTrue(homePage.profileNavItem.isDisplayed(),"signInButton is not Displayed on login page.");//s: comment if assert will down
+        sleep(3000);
+        Assert.assertTrue(homePage.isPageLoaded(),"HomePage page is not loaded!");
+
     }
 
 
     @Test
-    public void negativeLoginTestWithoutPassword () {
+    public void negativeLoginTestWithoutPassword () throws InterruptedException {
 
         webDriver.get("https://www.linkedin.com/");
-        String linkSite = webDriver.getCurrentUrl();
+//        String linkSite = webDriver.getCurrentUrl();
         String login = "a@b.c";
         String password = "";
-        String homeLink = "https://www.linkedin.com/";
+//        String homeLink = "https://www.linkedin.com/";
 
         LoginPage loginPage = new LoginPage(webDriver);
 
-        Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
+        //Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
+        Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
+
 
         loginPage.login(login,password);
 
-        Assert.assertEquals(webDriver.getCurrentUrl(),homeLink, "You are not logged in to your account!");
+        //Assert.assertEquals(webDriver.getCurrentUrl(),homeLink, "You are not logged in to your account!");
+        sleep(3000);
+        Assert.assertTrue(loginPage.isPageLoaded(),"Your password is not empty or incorrect!");
+
+
+    }
+
+
+    @Test
+    public void negativeLoginTestLoginPasswordEmpty () throws InterruptedException {
+
+        webDriver.get("https://www.linkedin.com/");
+        String login = "";
+        String password = "";
+
+        LoginPage loginPage = new LoginPage(webDriver);
+        Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
+        loginPage.login(login,password);
+        sleep(3000);
+        Assert.assertTrue(loginPage.isPageLoaded(),"Your password is not empty or incorrect!");
 
 
     }
 
     @Test
-    public void negativeLoginTestWithIncorrectPassword() {
+    public void negativeLoginTestLoginPasswordRandomChar () throws InterruptedException {
+
         webDriver.get("https://www.linkedin.com");
-        String linkSite = webDriver.getCurrentUrl();
-        String login = "SergAutoTest@bigmir.net";
-        String password = "112233q";
-        String homeLinkGuest = "https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME";
+        String login = "asada";
+        String password = "fxfgdgd31";
 
         LoginPage loginPage = new LoginPage(webDriver);
-        Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
-
+        Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
         loginPage.login(login,password);
 
-        Assert.assertEquals(webDriver.getCurrentUrl(),homeLinkGuest, "You are not logged in to your account!");
+        LoginSubmit loginSubmit = new LoginSubmit(webDriver);
+        sleep(3000);
+        Assert.assertTrue(loginSubmit.isPageLoaded(),"Your password is not empty or incorrect!");
+        //not working.
+
+    }
+
+    @Test
+    public void negativeLoginTestWithIncorrectPassword() throws InterruptedException {
+        webDriver.get("https://www.linkedin.com");
+        String login = "SergAutoTest@bigmir.net";
+        String password = "112233q";
+
+        LoginPage loginPage = new LoginPage(webDriver);
+        Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
+        loginPage.login(login,password);
+
+        LoginSubmit loginSubmit = new LoginSubmit(webDriver);
+        sleep(3000);
+        Assert.assertTrue(loginSubmit.isPageLoaded(),"Your password is not empty or incorrect!");
 
     }
 
