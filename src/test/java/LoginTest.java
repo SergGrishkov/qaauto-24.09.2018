@@ -34,12 +34,12 @@ public class LoginTest {
         String password = "!qaz@wsx";
 
         LoginPage loginPage = new LoginPage(webDriver);
-        Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
-        loginPage.login(login, password);
 
-        HomePage homePage = new HomePage(webDriver);
-        sleep(3000);
-        Assert.assertTrue(homePage.isPageLoaded(),"HomePage page is not loaded!");
+        Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
+
+        HomePage homePage = loginPage.login(login, password);
+
+        Assert.assertTrue(homePage.isPageLoaded(),"HomePage is not displayed on Login Page!");
 
     }
 
@@ -48,20 +48,15 @@ public class LoginTest {
     public void negativeLoginTestWithoutPassword () throws InterruptedException {
 
         webDriver.get("https://www.linkedin.com/");
-//        String linkSite = webDriver.getCurrentUrl();
         String login = "a@b.c";
         String password = "";
-//        String homeLink = "https://www.linkedin.com/";
 
         LoginPage loginPage = new LoginPage(webDriver);
 
-        //Assert.assertEquals(webDriver.getCurrentUrl(),linkSite, "HomePage URL is correct!");
         Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
-
 
         loginPage.login(login,password);
 
-        //Assert.assertEquals(webDriver.getCurrentUrl(),homeLink, "You are not logged in to your account!");
         sleep(3000);
         Assert.assertTrue(loginPage.isPageLoaded(),"Your password is not empty or incorrect!");
 
