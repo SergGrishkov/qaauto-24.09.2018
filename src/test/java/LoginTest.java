@@ -104,6 +104,22 @@ public class LoginTest {
     }
 
     @Test
+    public void negativeLoginTestLoginEmptyPasswordRandom () throws InterruptedException {
+
+        webDriver.get("https://www.linkedin.com/");
+        String login = "";
+        String password = "asadsa";
+
+        LoginPage loginPage = new LoginPage(webDriver);
+        Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
+        loginPage.login(login,password);
+        sleep(3000);
+        Assert.assertTrue(loginPage.isPageLoaded(),"Your password is not empty or incorrect!");
+
+
+    }
+
+    @Test
     public void negativeLoginTestWithIncorrectPassword() throws InterruptedException {
         webDriver.get("https://www.linkedin.com");
         String login = "SergAutoTest@bigmir.net";
