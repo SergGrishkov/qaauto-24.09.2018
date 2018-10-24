@@ -17,7 +17,6 @@ public class LoginPage {
     @FindBy(xpath = "//*[@id=\"login-submit\"]")
     private WebElement signInButton;
 
-
     public LoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this); // или вместо this - LoginPage.class
@@ -43,4 +42,13 @@ public class LoginPage {
         return new HomePage(webDriver);
         //найти ответ в Гугл на реализацию метода для перебора Логина
     }
+
+    public LoginSubmit loginSubmitPage (String userEmail, String userPassword){
+        userEmailField.sendKeys(userEmail);
+        userPasswordField.sendKeys(userPassword);
+        signInButton.click();
+        return new LoginSubmit(webDriver);
+        //найти ответ в Гугл на реализацию метода для перебора Логина
+    }
+
 }
