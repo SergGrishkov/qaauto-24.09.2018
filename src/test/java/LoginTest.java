@@ -52,13 +52,11 @@ public class LoginTest {
         String password = "";
 
         LoginPage loginPage = new LoginPage(webDriver);
-
         Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
 
-        loginPage.login(login,password);
-
+        LoginSubmit loginSubmit = loginPage.loginSubmitPage(login,password);
         sleep(3000);
-        Assert.assertTrue(loginPage.isPageLoaded(),"Your password is not empty or incorrect!");
+        Assert.assertTrue(loginSubmit.isPageLoaded(),"Your password is not empty or incorrect!");
 
 
     }
@@ -89,9 +87,8 @@ public class LoginTest {
 
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
-        loginPage.login(login,password);
 
-        LoginSubmit loginSubmit = new LoginSubmit(webDriver);
+        LoginSubmit loginSubmit = loginPage.loginSubmitPage(login,password);
         sleep(3000);
         Assert.assertTrue(loginSubmit.isPageLoaded(),"Your password is not empty or incorrect!");
         //not working.
@@ -126,7 +123,7 @@ public class LoginTest {
 
         //LoginSubmit loginSubmit = new LoginSubmit(webDriver);
         //HomePage loginSubmit = loginPage.login(login,password);
-        //sleep(3000);
+        sleep(3000);
         Assert.assertTrue(loginSubmit.isPageLoaded(),"Your password is not empty or incorrect!");
 
     }

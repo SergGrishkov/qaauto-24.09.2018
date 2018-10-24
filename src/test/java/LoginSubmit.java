@@ -14,7 +14,7 @@ public class LoginSubmit {
     @FindBy(xpath = "//*[@id=\"session_password-login\"]")
     private WebElement userPasswordField;
 
-    @FindBy(xpath = "//*[@id=\"btn-primary\"]")
+    @FindBy(xpath = "//html/body/div[1]/div[1]/div/form/button")
     private WebElement signInButton;
 
     public LoginSubmit (WebDriver webDriver){
