@@ -1,4 +1,3 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,7 +43,7 @@ public class LoginPage {
             return (T) new HomePage(webDriver);
         }
         if (webDriver.getCurrentUrl().contains("/uas/login-submit")) {
-            return (T) new LoginSubmit(webDriver);
+            return (T) new LoginSubmitPage(webDriver);
         } else {
             return (T) new LoginPage(webDriver);
         }
@@ -52,26 +51,9 @@ public class LoginPage {
     }
 
        public boolean isPageLoaded(){
-           return webDriver.getCurrentUrl().equals("https://www.linkedin.com/")
-                   && webDriver.getTitle().equals("LinkedIn: Войти или зарегистрироваться")
+           return webDriver.getCurrentUrl().contains("www.linkedin.com")
+                   && webDriver.getTitle().contains("Войти")
                    && isSignInButtonDisplay();
        }
-//
-//
-//    public HomePage login (String userEmail, String userPassword){
-//        userEmailField.sendKeys(userEmail);
-//        userPasswordField.sendKeys(userPassword);
-//        signInButton.click();
-//        return new HomePage(webDriver);
-//        //найти ответ в Гугл на реализацию метода для перебора Логина
-//    }
-//
-//    public LoginSubmit loginSubmitPage (String userEmail, String userPassword){
-//        userEmailField.sendKeys(userEmail);
-//        userPasswordField.sendKeys(userPassword);
-//        signInButton.click();
-//        return new LoginSubmit(webDriver);
-//        //найти ответ в Гугл на реализацию метода для перебора Логина
-//    }
 
 }

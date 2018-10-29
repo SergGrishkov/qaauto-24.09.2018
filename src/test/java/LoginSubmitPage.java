@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-public class LoginSubmit {
+public class LoginSubmitPage {
 
     private WebDriver webDriver;
 
@@ -15,35 +15,41 @@ public class LoginSubmit {
     @FindBy(xpath = "//*[@id=\"session_password-login\"]")
     private WebElement userPasswordField;
 
-    @FindBy (xpath = "//*[@id=\"error-for-password\"]")
-    private  WebElement userErrorMessage;
+    @FindBy (xpath = "//*[@id=\"session_password-login-error\"]]")
+    private  WebElement passwordValidationMessage;
+
+    @FindBy(xpath = "//*[@id=\"session_key-login\"]")
+    private  WebElement emailValidationMessage;
+
+    @FindBy (xpath = "//div[@role='alert']")
+    private WebElement allertBox;
 
     @FindBy(xpath = "//html/body/div[1]/div[1]/div/form/button")
     private WebElement signInButton;
 
 
-    public LoginSubmit (WebDriver webDriver){
+    public LoginSubmitPage(WebDriver webDriver){
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this);
     }
 
-//    public boolean isSignInButtonGuestHomeDisplay(){
-//        return signInButton.isDisplayed();
-//    }
 
     public boolean isPageLoaded(){
         return webDriver.getCurrentUrl().contains("uas/login-submit")
                 && webDriver.getTitle().contains("Войти в LinkedIn")
-                && signInButton.isDisplayed();
+                && allertBox.isDisplayed();
     }
 
-    public <S> S login (String userEmail, String userPassword, String emailValidationMessage, String passwordValidationMessage) {
-        userEmailField.sendKeys(userEmail);
-        userPasswordField.sendKeys(userPassword);
-        userErrorMessage.getText().contains(emailValidationMessage);
-        Assert.assertEquals(passwordValidationMessage,);
 
-
+    public String getEmailValidationMessage () {
+        return emailValidationMessage.getText();
     }
 
+    public String getPasswordValidationMessage (){
+        return passwordValidationMessage.getText();
+    }
+
+    public String getAlertMessageText() {
+        return allertBox.getText();
+    }
 }
