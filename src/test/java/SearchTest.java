@@ -1,9 +1,17 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.security.Key;
+import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Precondition:
@@ -35,18 +43,36 @@ public class SearchTest {
 
     }
 
-    @AfterMethod
-    public void afterMethod () {
-        webDriver.quit();
-    }
+//    @AfterMethod
+//    public void afterMethod () {
+//        webDriver.quit();
+//    }
 
 
 
     @Test
-    public void basicSearchTest(){
+    public void basicSearchTest() throws InterruptedException {
+        String searchTerm = "HR";
+
         Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
         HomePage homePage = loginPage.login("SergAutoTest@bigmir.net","!qaz@wsx");
         Assert.assertTrue(homePage.isPageLoaded(),"HomePage is not displayed on Login Page!");
 
+        WebElement searchField = webDriver.findElement(By.xpath("/html/body/nav/div/form/div/div/div/artdeco-typeahead-deprecated/artdeco-typeahead-deprecated-input/input"));
+        searchField.sendKeys(searchTerm);
+        searchField.sendKeys(Keys.RETURN);
+
+        sleep(3000);
+
+        Assert.assertEquals(webDriver.getTitle().contains("Поиск | LinkedIn"),"asdadaaadasdadasdadadasdaad" );
+
+        List <WebElement> searchResults = webDriver.findElements(By.xpath("//div[@class='search-result__info pt3 pb4 ph0']"));
+        sleep(19000);
+
+        System.out.println("Size = " + searchResults.size());
+
+        for (WebElement element : searchResults) {
+            System.out.println(element.getText());
+        }
     }
 }
