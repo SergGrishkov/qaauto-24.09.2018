@@ -1,7 +1,4 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -62,28 +59,13 @@ public class SearchTest {
         searchField.sendKeys(searchTerm);
         searchField.sendKeys(Keys.RETURN);
 
-        sleep(30000);
+        sleep(5000);
 
         SearchPage searchPage = new SearchPage(webDriver);
         Assert.assertTrue(searchPage.isPageLoaded(),"SearchPage page is not loaded!" );
+        sleep(5000);
+        searchPage.printSearchResult(searchTerm);
 
-        List <WebElement> searchResults = webDriver.findElements(By.xpath("//*[@class='search-result__wrapper']"));
-        sleep(3000);
 
-        Assert.assertEquals(searchResults.size(), 10, "Total resuln <> 10.");
-        System.out.println("Size = " + searchResults.size());
-
-        for (WebElement element : searchResults) {
-            System.out.println("******************************************************************************");
-            System.out.println(element.getText());
-            if (element.getText().toLowerCase().contains(searchTerm.toLowerCase())){
-                System.out.println("|-----SearchTerm " + searchTerm + " was found.-----|");
-            }
-            else  {
-                System.out.println("|-----SearchTerm " + searchTerm + " was not found.-----|");
-            }
-            System.out.println("******************************************************************************");
-            System.out.println();
-        }
     }
 }
