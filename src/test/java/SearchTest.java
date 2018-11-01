@@ -55,6 +55,15 @@ public class SearchTest {
         HomePage homePage = loginPage.login("SergAutoTest@bigmir.net","!qaz@wsx");
         Assert.assertTrue(homePage.isPageLoaded(),"HomePage is not displayed on Login Page!");
 
+        SearchPage searchPage = HomePage.search(searchTerm);
+        Assert.assertTrue(searchPage.isPageLoaded(),"Search page is not displayed on Login Page!");
+        Assert.assertEquals(searchPage.getSearchResultsCount(),10,"Search result count is wrong.");
+
+        Assert.assertTrue(searchPage.getSearchResults().contains(searchTerm));
+
+
+
+
         WebElement searchField = webDriver.findElement(By.xpath("/html/body/nav/div/form/div/div/div/artdeco-typeahead-deprecated/artdeco-typeahead-deprecated-input/input"));
         searchField.sendKeys(searchTerm);
         searchField.sendKeys(Keys.RETURN);
