@@ -43,10 +43,10 @@ public class SearchTest {
 
     }
 
-//    @AfterMethod
-//    public void afterMethod () {
-//        webDriver.quit();
-//    }
+        @AfterMethod
+        public void afterMethod () {
+            webDriver.quit();
+        }
 
 
 
@@ -62,17 +62,28 @@ public class SearchTest {
         searchField.sendKeys(searchTerm);
         searchField.sendKeys(Keys.RETURN);
 
+        sleep(30000);
+
+        SearchPage searchPage = new SearchPage(webDriver);
+        Assert.assertTrue(searchPage.isPageLoaded(),"SearchPage page is not loaded!" );
+
+        List <WebElement> searchResults = webDriver.findElements(By.xpath("//*[@class='search-result__wrapper']"));
         sleep(3000);
 
-        Assert.assertEquals(webDriver.getTitle().contains("Поиск | LinkedIn"),"asdadaaadasdadasdadadasdaad" );
-
-        List <WebElement> searchResults = webDriver.findElements(By.xpath("//div[@class='search-result__info pt3 pb4 ph0']"));
-        sleep(19000);
-
+        Assert.assertEquals(searchResults.size(), 10, "Total resuln <> 10.");
         System.out.println("Size = " + searchResults.size());
 
         for (WebElement element : searchResults) {
+            System.out.println("******************************************************************************");
             System.out.println(element.getText());
+            if (element.getText().toLowerCase().contains(searchTerm.toLowerCase())){
+                System.out.println("|-----SearchTerm " + searchTerm + " was found.-----|");
+            }
+            else  {
+                System.out.println("|-----SearchTerm " + searchTerm + " was not found.-----|");
+            }
+            System.out.println("******************************************************************************");
+            System.out.println();
         }
     }
 }
