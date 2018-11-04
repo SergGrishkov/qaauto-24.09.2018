@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -6,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Scanner;
 
 
 public class LoginTest {
@@ -21,10 +23,10 @@ public class LoginTest {
 
     }
 
-    @AfterMethod
-    public void afterMethod () {
-        webDriver.quit();
-    }
+//    @AfterMethod
+//    public void afterMethod () {
+//        webDriver.quit();
+//    }
 
     @DataProvider
     public Object [][] validDataProvider() {
@@ -85,16 +87,27 @@ public class LoginTest {
                                                              String emailValidationMessage,
                                                              String passwordValidationMessage)  {
 
-
             Assert.assertTrue(loginPage.isPageLoaded(),"Login page is not loaded!");
-            LoginSubmitPage loginSubmitPage = loginPage.login(userEmail, userPassword);
 
-            //Assert.assertTrue(loginSubmitPage.isPageLoaded(),"Submit page is not loaded!" );
+            LoginSubmitPage loginSubmitPage = loginPage.login(userEmail, userPassword);
+            Assert.assertTrue(loginSubmitPage.isPageLoaded(),"LoginSubmitPage page is not loaded." );
 
             Assert.assertEquals(loginSubmitPage.getAlertMessageText(), "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля.",
                     "Alert message text is wrong.");
             Assert.assertEquals(loginSubmitPage.getEmailValidationMessage(), emailValidationMessage,"Email validation is wrong!");
             Assert.assertEquals(loginSubmitPage.getPasswordValidationMessage(), passwordValidationMessage,"Password validation is wrong!");
+        }
+
+        @Test
+        public void changePassword (){
+
+        ChangePasswordPage changePasswordPage = loginPage.changePassword();
+        Assert.assertTrue(changePasswordPage.isPageLoaded(),"ChangePasswordPage page is not loaded.");
+
+        CheckpointPage checkpointPage = changePasswordPage.checkpoint("SergAutoTest@bigmir.net");
+        Assert.assertTrue(checkpointPage.isPageLoaded(),"CheckpointPage page is not loaded.");
+
+
         }
 
 }

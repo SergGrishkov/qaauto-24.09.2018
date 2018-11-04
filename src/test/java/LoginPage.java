@@ -18,6 +18,9 @@ public class LoginPage {
     @FindBy(xpath = "//*[@id=\"login-submit\"]")
     private WebElement signInButton;
 
+    @FindBy(xpath = "//*[@class='link-forgot-password']")
+    private WebElement linkForgotPassword;
+
     public LoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this); // или вместо this - LoginPage.class
@@ -55,5 +58,25 @@ public class LoginPage {
                    && webDriver.getTitle().contains("Войти")
                    && isSignInButtonDisplay();
        }
+
+    public <C> C changePassword () {
+        linkForgotPassword.click();
+        try {
+            sleep(3000);
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
+        if (webDriver.getCurrentUrl().contains("https://www.linkedin.com/uas/request-password-reset")) {
+            return (C) new ChangePasswordPage(webDriver);
+        }
+        if (webDriver.getCurrentUrl().contains("/uas/login-submit")) {
+            return (C) new LoginSubmitPage(webDriver);
+        }
+        else {
+            return (C) new LoginPage(webDriver);
+        }
+
+    }
 
 }
