@@ -23,15 +23,15 @@ public class LoginTest {
 
     }
 
-//    @AfterMethod
-//    public void afterMethod () {
-//        webDriver.quit();
-//    }
+    @AfterMethod
+    public void afterMethod () {
+        webDriver.quit();
+    }
 
     @DataProvider
     public Object [][] validDataProvider() {
         return new Object[][] {
-                {"SergAutoTest@bigmir.net","!qaz@wsx"}
+                {"serggrishkovedu@gmail.com","!QAz@wsx"}
         };
     }
 
@@ -98,16 +98,5 @@ public class LoginTest {
             Assert.assertEquals(loginSubmitPage.getPasswordValidationMessage(), passwordValidationMessage,"Password validation is wrong!");
         }
 
-        @Test
-        public void changePassword (){
-
-        ChangePasswordPage changePasswordPage = loginPage.changePassword();
-        Assert.assertTrue(changePasswordPage.isPageLoaded(),"ChangePasswordPage page is not loaded.");
-
-        CheckpointPage checkpointPage = changePasswordPage.checkpoint("SergAutoTest@bigmir.net");
-        Assert.assertTrue(checkpointPage.isPageLoaded(),"CheckpointPage page is not loaded.");
-
-
-        }
 
 }

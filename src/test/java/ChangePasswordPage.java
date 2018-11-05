@@ -16,6 +16,8 @@ public class ChangePasswordPage {
     @FindBy(xpath = "//*[@id=\"username\"]")
     private WebElement inputEmailForChange;
 
+
+
     public ChangePasswordPage (WebDriver webDriver){
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this);
@@ -42,4 +44,10 @@ public class ChangePasswordPage {
         }
         return new CheckpointPage(webDriver);
     }
+
+    public void inputLinkFromEmail(String linkFromEmail) {
+        webDriver.get(linkFromEmail);
+    }
+
+
 }
