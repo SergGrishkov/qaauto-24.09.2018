@@ -1,11 +1,12 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ConfirmPasswordPage {
+public class ConfirmPasswordPage extends BasePage{
 
-    private WebDriver webDriver;
 
     @FindBy(xpath = "//*[@id=\"reset-password-submit-button\"]")
     private WebElement buttonSubmit;
@@ -17,7 +18,7 @@ public class ConfirmPasswordPage {
 
     }
 
-    public boolean isPageChangedPassword(){
+    public boolean isPageLoaded(){
         return buttonSubmit.isDisplayed()
                 && webDriver.getTitle().contains("Вы изменили свой пароль")
                 && webDriver.getCurrentUrl().contains("https://www.linkedin.com/checkpoint/rp/password-reset-submit");

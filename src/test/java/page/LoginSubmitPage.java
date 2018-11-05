@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -5,9 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-public class LoginSubmitPage {
+public class LoginSubmitPage extends BasePage{
 
-    private WebDriver webDriver;
 
     @FindBy(xpath = "//*[@id=\"session_key-login\"]")
     private WebElement userEmailField;

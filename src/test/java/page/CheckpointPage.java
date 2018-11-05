@@ -1,11 +1,12 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CheckpointPage {
+public class CheckpointPage extends BasePage{
 
-    private WebDriver webDriver;
 
     @FindBy(xpath = "//*[@id=\"resend-url\"]")
     private WebElement buttonSend;
@@ -18,6 +19,12 @@ public class CheckpointPage {
 
     @FindBy(xpath = "//*[@id=\"reset-password-submit-button\"]")
     private WebElement sendPasswordButton;
+
+    @FindBy(xpath = "//*[@id=\"nav-settings__dropdown-trigger\"]")
+    private WebElement nativeContainer;
+
+    @FindBy(xpath = "//*[@id=\"nav-settings__dropdown-options\"]/li[4]/ul")
+    private WebElement logout;
 
     private boolean isSignInEmailDisplay (){
         return sendPasswordButton.isDisplayed();
@@ -39,10 +46,10 @@ public class CheckpointPage {
     }
 
     public boolean isPageChangePasswordLoaded (){
-        return webDriver.getCurrentUrl().contains("https://www.linkedin.com/checkpoint/rp/password-reset?requestSubmissionId")
-                && webDriver.getTitle().contains("Изменить пароль")
-                && newPassword.isDisplayed()
-                && confirmPassword.isDisplayed();
+        return webDriver.getCurrentUrl().contains("https://www.linkedin.com/checkpoint/rp/password-reset")
+                && webDriver.getTitle().contains("пароль");
+                //&& newPassword.isDisplayed()
+                //&& confirmPassword.isDisplayed();
     }
 
     public void inputNewPassword (String inputNewPassword) {
@@ -50,6 +57,11 @@ public class CheckpointPage {
         confirmPassword.sendKeys(inputNewPassword);
         sendPasswordButton.click();
 
+    }
+
+    public void logoutPage() {
+        nativeContainer.click();
+        logout.click();
 
     }
 }

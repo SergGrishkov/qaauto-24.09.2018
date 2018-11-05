@@ -1,19 +1,16 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import static java.lang.Thread.sleep;
 
-public class SearchPage {
+public class SearchPage extends BasePage{
 
-    private WebDriver webDriver;
 
     @FindBy(xpath = "//div[contains(@class,'search-filters-bar')]")
     private WebElement searchBar;
