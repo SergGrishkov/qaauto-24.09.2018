@@ -48,8 +48,6 @@ public class CheckpointPage extends BasePage{
     public boolean isPageChangePasswordLoaded (){
         return webDriver.getCurrentUrl().contains("https://www.linkedin.com/checkpoint/rp/password-reset")
                 && webDriver.getTitle().contains("пароль");
-                //&& newPassword.isDisplayed()
-                //&& confirmPassword.isDisplayed();
     }
 
     public void inputNewPassword (String inputNewPassword) {

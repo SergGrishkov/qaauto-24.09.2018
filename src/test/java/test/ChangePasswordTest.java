@@ -1,5 +1,6 @@
 package test;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.ChangePasswordPage;
@@ -20,6 +21,7 @@ import static java.lang.Thread.sleep;
  */
 public class ChangePasswordTest extends BaseTest{
 
+    public WebDriver webDriver;
 
     @Test
     public void changePassword (){
@@ -29,6 +31,7 @@ public class ChangePasswordTest extends BaseTest{
 
         CheckpointPage checkpointPage = changePasswordPage.checkpoint("serggrishkovedu@gmail.com");
         Assert.assertTrue(checkpointPage.isPageLoaded(),"page.CheckpointPage page is not loaded.");
+
 
         try {
             sleep(3000);

@@ -1,10 +1,13 @@
 package page;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import util.GMailService;
+
+import java.security.Key;
 
 import static java.lang.Thread.sleep;
 
@@ -16,6 +19,9 @@ public class ChangePasswordPage extends BasePage{
 
     @FindBy(xpath = "//*[@id=\"username\"]")
     private WebElement inputEmailForChange;
+
+    @FindBy(xpath = "//*[@id=\"reset-password-submit-button\"]")
+    private WebElement buttonSubmit;
 
 
 
@@ -41,7 +47,7 @@ public class ChangePasswordPage extends BasePage{
         gMailService.connect();
 
         inputEmailForChange.sendKeys(searchTerm);
-        inputEmailForChange.click();
+        buttonSubmit.click();
 
         String messageSubject = "Serg, данное сообщение содержит ссылку для изменения пароля";
         String messageTo = "serggrishkovedu@gmail.com";
