@@ -5,12 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.ChangePasswordPage;
 import page.CheckpointPage;
-import page.ConfirmPasswordPage;
 import page.HomePage;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import static java.lang.Thread.sleep;
 
 /*
@@ -20,9 +17,8 @@ import static java.lang.Thread.sleep;
 4. Получить ссылку и вставить в окно
 5. Перейти на страницу с вводом и подветждением пароль, верифицироваться
 6. Ввести пароль и подтвердить пароль, отправить
+*/
 
-
- */
 public class ChangePasswordTest extends BaseTest{
 
     public WebDriver webDriver;

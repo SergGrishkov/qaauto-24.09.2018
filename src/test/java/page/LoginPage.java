@@ -36,12 +36,13 @@ public class LoginPage extends BasePage{
     public <T> T login (String userEmail, String userPassword) {
         userEmailField.sendKeys(userEmail);
         userPasswordField.sendKeys(userPassword);
+        waitUntilElementIsClicable(signInButton);
         signInButton.click();
-        try {
-            sleep(3000);
-        } catch (InterruptedException e){
-            e.printStackTrace();
-        }
+//        try {
+//            sleep(3000);
+//        } catch (InterruptedException e){
+//            e.printStackTrace();
+//        }
 
         if (webDriver.getCurrentUrl().contains("/feed")) {
             return (T) new HomePage(webDriver);
