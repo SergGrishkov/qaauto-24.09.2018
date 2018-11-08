@@ -40,8 +40,8 @@ public class CheckpointPage extends BasePage{
     }
 
     public boolean isPageLoaded(){
-        return webDriver.getCurrentUrl().contains("checkpoint/rp/request-password-reset-submit")
-                && webDriver.getTitle().contains("Проверьте, получили ли вы")
+        return webDriver.getCurrentUrl().contains("checkpoint/rp/")
+                && webDriver.getTitle().contains("пароль")
                 && isButtonSendDisplayed();
     }
 

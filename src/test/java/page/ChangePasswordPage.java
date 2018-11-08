@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import util.GMailService;
 
 import java.security.Key;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.Thread.sleep;
 
@@ -22,6 +24,12 @@ public class ChangePasswordPage extends BasePage{
 
     @FindBy(xpath = "//*[@id=\"reset-password-submit-button\"]")
     private WebElement buttonSubmit;
+
+    @FindBy(xpath = "//*[@id=\"newPassword\"]")
+    private WebElement newPassword;
+
+    @FindBy(xpath = "//*[@id=\"confirmPassword\"]")
+    private WebElement confirmPassword;
 
 
 
@@ -54,8 +62,18 @@ public class ChangePasswordPage extends BasePage{
         String messageFrom = "security-noreply@linkedin.com";
 
 
-        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 60);
-        System.out.println("Content: " + message);
+        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 90);
+        //System.out.println("Content: " + message);
+
+
+        Pattern p = Pattern.compile("Чтобы изменить пароль в LinkedIn, нажмите <a href=\"([[^\"].]{0,})\"",  Pattern.CASE_INSENSITIVE|Pattern.DOTALL);
+        Matcher m = p.matcher(message);
+        if (m.find()) {
+            String link = m.group(1);
+            link = link.replaceAll("&amp;", "&");
+            System.out.println(link);
+            webDriver.navigate().to(link);
+        }
 
         try {
             sleep(3000);
@@ -69,5 +87,11 @@ public class ChangePasswordPage extends BasePage{
         webDriver.get(linkFromEmail);
     }
 
+    public void changePassword (String pwd1, String pwd2){
+        newPassword.sendKeys(pwd1);
+        confirmPassword.sendKeys(pwd2);
+        buttonSubmit.click();
+
+    }
 
 }
