@@ -24,16 +24,5 @@ public class ConfirmPasswordPage extends BasePage{
                 && webDriver.getCurrentUrl().contains("https://www.linkedin.com/checkpoint/rp/password-reset-submit");
     }
 
-    public void clickTransferToHeadPage (){
-        buttonSubmit.click();
-    }
-
-
-
-
-
-
-
-
 
 }

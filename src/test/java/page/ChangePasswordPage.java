@@ -83,15 +83,9 @@ public class ChangePasswordPage extends BasePage{
         return new CheckpointPage(webDriver);
     }
 
-    public void inputLinkFromEmail(String linkFromEmail) {
-        webDriver.get(linkFromEmail);
-    }
-
-    public void changePassword (String pwd1, String pwd2){
-        newPassword.sendKeys(pwd1);
-        confirmPassword.sendKeys(pwd2);
+    public void clickTransferToHeadPage (){
         buttonSubmit.click();
-
     }
+
 
 }

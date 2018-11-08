@@ -15,8 +15,6 @@ public class SearchPage extends BasePage{
     @FindBy(xpath = "//div[contains(@class,'search-filters-bar')]")
     private WebElement searchBar;
 
-//    @FindBy(xpath = "\"/html/body/nav/div/form/div/div/div/artdeco-typeahead-deprecated/artdeco-typeahead-deprecated-input/input\"")
-//    private WebElement searchField;
 
     @FindBy(xpath = "//li[contains(@class,'search-result__occluded-item')]")
     private List<WebElement> searchResultList;
@@ -37,27 +35,6 @@ public class SearchPage extends BasePage{
                 && isSignInBarDisplay();
     }
 
-//    public void printSearchResult (String searchTerm) throws InterruptedException {
-//
-//        List<WebElement> searchResults = webDriver.findElements(By.xpath("//*[@class='search-result__wrapper']"));
-//        sleep(5000);
-//        System.out.println("Size = " + searchResults.size());
-//
-//        for (WebElement element : searchResults) {
-//
-//            System.out.println("******************************************************************************");
-//            System.out.println(element.getText());
-//            if (element.getText().toLowerCase().contains(searchTerm.toLowerCase())){
-//                System.out.println("|-----SearchTerm " + searchTerm + " was found.-----|");
-//            }
-//            else  {
-//                System.out.println("|-----SearchTerm " + searchTerm + " was not found.-----|");
-//            }
-//            System.out.println("******************************************************************************");
-//            System.out.println();
-//        }
-//
-//    }
 
     public int getSearchResultsCount() {
         return searchResultList.size();
