@@ -35,21 +35,37 @@ public class CheckpointPage extends BasePage{
         PageFactory.initElements(webDriver,this);
     }
 
+    /**
+     * Method for identification field on display.
+     * @return
+     */
     private boolean isButtonSendDisplayed (){
         return buttonSend.isDisplayed();
     }
 
+    /**
+     * Method for validation Page loaded.
+     * @return
+     */
     public boolean isPageLoaded(){
         return webDriver.getCurrentUrl().contains("checkpoint/rp/")
                 && webDriver.getTitle().contains("пароль")
                 && isButtonSendDisplayed();
     }
 
+    /**
+     * Method for validation Page loaded.
+     * @return
+     */
     public boolean isPageChangePasswordLoaded (){
         return webDriver.getCurrentUrl().contains("https://www.linkedin.com/checkpoint/rp/password-reset")
                 && webDriver.getTitle().contains("пароль");
     }
 
+    /**
+     * Method which input new password for change
+     * @return
+     */
     public void inputNewPassword (String inputNewPassword) {
         newPassword.sendKeys(inputNewPassword);
         confirmPassword.sendKeys(inputNewPassword);
@@ -57,6 +73,10 @@ public class CheckpointPage extends BasePage{
 
     }
 
+    /**
+     * Method for logout from account.
+     * @return
+     */
     public void logoutPage() {
         nativeContainer.click();
         logout.click();

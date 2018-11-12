@@ -28,21 +28,29 @@ public class LoginPage extends BasePage{
 
     }
 
+    /**
+     * Method for identification field on display.
+     * @return
+     */
     public boolean isSignInButtonDisplay(){
         return signInButton.isDisplayed();
     }
 
 
+    /**
+     * Method, which return page at condition random userMail and userPassword.
+     * @param userEmail
+     * @param userPassword
+     * @param <T>
+     * @return
+     */
     public <T> T login (String userEmail, String userPassword) {
         userEmailField.sendKeys(userEmail);
         userPasswordField.sendKeys(userPassword);
-        waitUntilElementIsClicable(signInButton);
+        waitUntilElementIsClickable(signInButton);
+        waitUntilElementIsSelected(signInButton);
         signInButton.click();
-//        try {
-//            sleep(3000);
-//        } catch (InterruptedException e){
-//            e.printStackTrace();
-//        }
+
 
         if (webDriver.getCurrentUrl().contains("/feed")) {
             return (T) new HomePage(webDriver);
@@ -55,12 +63,21 @@ public class LoginPage extends BasePage{
 
     }
 
+    /**
+     * Method for validation Page loaded.
+     * @return
+     */
        public boolean isPageLoaded(){
            return webDriver.getCurrentUrl().contains("www.linkedin.com")
                    && webDriver.getTitle().contains("Войти")
                    && isSignInButtonDisplay();
        }
 
+    /**
+     * Method which return Page at condition random userMail and userPassword.
+     * @param <C>
+     * @return
+     */
     public <C> C changePassword () {
         linkForgotPassword.click();
         try {

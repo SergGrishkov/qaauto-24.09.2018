@@ -17,8 +17,8 @@ public class BaseTest {
         loginPage = new LoginPage(webDriver);
     }
 
-//    @AfterMethod
-//    public void afterMethod () {
-//        webDriver.quit();
-//    }
+    @AfterMethod
+    public void afterMethod () {
+        webDriver.quit();
+    }
 }

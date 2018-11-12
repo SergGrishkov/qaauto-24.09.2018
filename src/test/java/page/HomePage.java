@@ -25,17 +25,26 @@ public class HomePage extends BasePage{
         PageFactory.initElements(webDriver,this);
     }
 
+    /**
+     * Method for search text.
+     * @param searchTerm
+     * @return
+     */
     public SearchPage search(String searchTerm) {
         searchField.sendKeys(searchTerm);
         searchField.sendKeys(Keys.RETURN);
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return new SearchPage(webDriver);
     }
 
+    /**
+     * Method for validation Page loaded.
+     * @return
+     */
     public boolean isPageLoaded (){
         return webDriver.getCurrentUrl().equals("https://www.linkedin.com/feed/")
                 && webDriver.getTitle().contains("LinkedIn")

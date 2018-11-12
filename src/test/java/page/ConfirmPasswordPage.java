@@ -18,6 +18,10 @@ public class ConfirmPasswordPage extends BasePage{
 
     }
 
+    /**
+     * Method for validation Page loaded.
+     * @return
+     */
     public boolean isPageLoaded(){
         return buttonSubmit.isDisplayed()
                 && webDriver.getTitle().contains("Вы изменили свой пароль")

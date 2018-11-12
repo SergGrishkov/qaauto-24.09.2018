@@ -24,11 +24,19 @@ public class SearchPage extends BasePage{
         PageFactory.initElements(webDriver, this);
     }
 
+    /**
+     * Method for identification field on display.
+     * @return
+     */
     private boolean isSignInBarDisplay(){
         return searchBar.isDisplayed();
     }
 
 
+    /**
+     * Method for validation Page loaded.
+     * @return
+     */
     public boolean isPageLoaded (){
         return webDriver.getCurrentUrl().contains("search/results")
                 && webDriver.getTitle().contains("Поиск | LinkedIn")
@@ -36,10 +44,18 @@ public class SearchPage extends BasePage{
     }
 
 
+    /**
+     * Method, which return size Search Result.
+     * @return
+     */
     public int getSearchResultsCount() {
         return searchResultList.size();
     }
 
+    /**
+     * Method for create Find list results
+     * @return
+     */
     public List<String> getSearchResults() {
         List<String> searchResultStringList = new ArrayList<String>();
         for (WebElement searchResult : searchResultList) {
